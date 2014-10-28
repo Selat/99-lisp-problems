@@ -1,0 +1,6 @@
+(defun split (l n)
+  (cond ((null l) nil)
+		((= n 0) (list nil l))
+		(t (let ((prev (split (rest l) (1- n))))
+			 (list (cons (first l) (first prev))
+				   (second prev))))))

@@ -1,0 +1,6 @@
+(defun encode-modified (l)
+  (mapcar #'(lambda (x)
+			  (if (> (length x) 1)
+				  (list (length x) (first x))
+				  (first x)))
+		  (pack l)))

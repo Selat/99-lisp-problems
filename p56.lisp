@@ -4,4 +4,4 @@
 		   (tree-equal-p (third t1) (third t2)))))
 
 (defun symmetric-p (tree)
-  (tree-equal (second tree) (third tree)))
+  (tree-equal-p (second tree) (third tree)))

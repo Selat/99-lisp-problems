@@ -1,5 +1,5 @@
 (defun repli (l num)
   (mapcan #'(lambda (x)
-			  (do ((i 0 (1+ i)) (res nil)) ((>= i num) res)
-				(setf res (cons x res))))
-		  l))
+              (do ((i 0 (1+ i)) (res nil)) ((>= i num) res)
+                (setf res (cons x res))))
+          l))

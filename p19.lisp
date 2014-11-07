@@ -2,5 +2,5 @@
 
 (defun rotate (lst dlt)
   (let* ((prefix-size (if (< dlt 0) (+ (length lst) dlt) dlt))
-		 (expr (split lst prefix-size)))
-	(append (second expr) (first expr))))
+         (expr (split lst prefix-size)))
+    (append (second expr) (first expr))))

@@ -1,0 +1,36 @@
+(defun lsort (lst)
+  (if (null lst) nil
+      (let ((minlst (first lst)) (minlen 1000) (minrest nil))
+        (do ((x (first lst) (first lst))
+             (prefix nil))
+            ((null lst))
+          (if (< (length x) minlen)
+              (progn (setq minlen (length x))
+                     (setq minlst x)
+                     (setq minrest (append (reverse prefix) (rest lst)))))
+          (setq prefix (cons (first lst) prefix))
+          (setq lst (rest lst)))
+        (cons minlst (lsort minrest)))))
+
+(defun lsort (lst)
+  (sort lst #'(lambda (a b) (< (length a) (length b)))))
+
+(defun lfsort (lst)
+  (labels ((get-frequency-list (lst)
+             (let ((table (make-hash-table)))
+               (loop for x in lst do
+                    (if (null (gethash (length x) table))
+                        (setf (gethash (length x) table) 1)
+                        (setf (gethash (length x) table) (1+ (gethash (length x) table)))))
+               (mapcar #'first
+                       (sort (loop for key being the hash-keys of table using (hash-value value)
+                                collect (list key value))
+                             #'(lambda (a b) (< (second a) (second b)))))))
+           (lfsort* (lst frequency-lst)
+             (if (null lst) nil
+                 (append (remove-if-not #'(lambda (x) (= (length x) (first frequency-lst)))
+                                        lst)
+                         (lfsort* (remove-if #'(lambda (x) (= (length x) (first frequency-lst)))
+                                             lst)
+                                  (rest frequency-lst))))))
+    (lfsort* lst (get-frequency-list lst))))
